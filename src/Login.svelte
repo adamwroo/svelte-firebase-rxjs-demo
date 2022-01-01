@@ -1,12 +1,10 @@
 <script>
-    import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-    import Profile from "./Profile.svelte";
-    import { auth, googleProvider } from "./firebase";
+    import { signInWithPopup } from "firebase/auth";
     import { authState } from "rxfire/auth";
+    import { auth, googleProvider } from "./firebase";
+    import Profile from "./Profile.svelte";
 
-    let user;
-
-    const unsubscribe = authState(auth).subscribe((u) => (user = u));
+    let user = authState(auth);
 
     function login() {
         signInWithPopup(auth, googleProvider);
@@ -14,8 +12,8 @@
 </script>
 
 <section>
-    {#if user}
-        <Profile {...user} />
+    {#if $user}
+        <Profile {...$user} />
         <button on:click={ () => auth.signOut() }>Logout</button>
     {:else}
         <button on:click={login}>
