@@ -11,7 +11,7 @@
     let text = 'some task';
 
     const todosRef = collection(db, 'todos');
-    const q = query(todosRef, where('uid', '==', uid));//, orderBy('created')); // TODO AdW: orderBy commented out because it requires adding an index in Firebase
+    const q = query(todosRef, where('uid', '==', uid), orderBy('created'));
     const todos = collectionData(q, { idField: 'id' }).pipe(startWith([]));
 
     async function add() {
