@@ -32,7 +32,7 @@
 </script>
 
 <ul>
-    {#each $todos as todo}
+    {#each $todos as todo (todo.id)}
         <TodoItem {...todo} on:remove={removeItem} on:toogle={updateStatus} />
     {/each}
 </ul>
